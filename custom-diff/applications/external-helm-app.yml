@@ -20,5 +20,15 @@ spec:
   # Sync policy
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true  
-   
+      - CreateNamespace=true
+
+  # Ignore differences for fields that change on every render
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jqPathExpressions:
+        - .metadata.annotations.creation
+    - kind: Secret
+      jqPathExpressions:
+        - .data."my-password"
+
